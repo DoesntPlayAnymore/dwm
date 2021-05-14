@@ -46,6 +46,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define ALTKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -62,7 +63,7 @@ static const char *pwdcmd[]   = { "cat", "~/.lastpwd", NULL };
 static const char *termcmd[]  = { "terminator", "--working-directory", "`cat ~/.lastpwd`", NULL };
 static const char *killslcmd[]= { "pkill", "slstatus", NULL };
 static const char *xblincrcmd[]   = { "xbacklight", "+10", NULL };
-static const char *xbldecrcmd[]   = { "xbacklight", "+-10", NULL };
+static const char *xbldecrcmd[]   = { "xbacklight", "-10", NULL };
 static const char *xvoldecrcmd[]   = { "amixer", "sset", "master", "-10", NULL };
 static const char *xvolincrcmd[]   = { "amixer", "sset", "master", "+10", NULL };
 static const char *xvolmutecmd[]   = { "amixer", "sset", "master", "0", NULL };
@@ -70,10 +71,10 @@ static const char *xvolmutecmd[]   = { "amixer", "sset", "master", "0", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd  } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ ALTKEY,                       XK_Tab,    focusstack,     {.i = +1 } },
+	{ ALTKEY,                       XK_Tab,    focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_n,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
