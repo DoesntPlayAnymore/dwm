@@ -13,15 +13,12 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_green[]        = "#00aa33";
-static const char col_orange[]        = "#FFaa33";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_orange  },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_green  },
 };
 
-/*From tilegap.*/
-static const unsigned int gappx = 18;
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -63,14 +60,13 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *pwdcmd[]   = { "cat", "~/.lastpwd", NULL };
-static const char *termcmd[]  = { "terminator", NULL };
+static const char *termcmd[]  = { "terminator", "--working-directory", "eval cat ~/.lastpwd", NULL };
 static const char *killslcmd[]= { "pkill", "slstatus", NULL };
 static const char *xblincrcmd[]   = { "xbacklight", "+10", NULL };
 static const char *xbldecrcmd[]   = { "xbacklight", "-10", NULL };
 static const char *xvoldecrcmd[]   = { "amixer", "sset", "master", "-10", NULL };
 static const char *xvolincrcmd[]   = { "amixer", "sset", "master", "+10", NULL };
 static const char *xvolmutecmd[]   = { "amixer", "sset", "master", "0", NULL };
-static const char *surfcmd[]      = { "surf","duckduckgo.com", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -78,7 +74,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd  } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ ALTKEY,                       XK_Tab,    focusstack,     {.i = +1 } },
-	{ ALTKEY|ShiftMask,             XK_Tab,    focusstack,     {.i = -1 } },
+	{ ALTKEY,                       XK_Tab,    focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_n,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -97,14 +93,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
- 	{ MODKEY,                       XK_s,      spawn,          {.v = surfcmd     } },
-	{ 0,                            0x1008ff03,spawn,         {.v = xbldecrcmd } },
-	{ 0,                            0x1008ff02,spawn,         {.v = xblincrcmd } },
-	{ 0,                            0x1008ff11,spawn,         {.v = xvoldecrcmd }   },
-	{ 0,                            0x1008ff13,spawn,         {.v = xvolincrcmd }   },
-	{ 0,                            0x1008ff12,spawn,         {.v = xvolmutecmd }   },
-
-	/* Tag keys. */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -115,6 +103,11 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
   	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0,                            0x1008ff03,spawn,         {.v = xbldecrcmd } },
+	{ 0,                            0x1008ff02,spawn,         {.v = xblincrcmd } },
+	{ 0,                            0x1008ff11,spawn,         {.v = xvoldecrcmd }   },
+	{ 0,                            0x1008ff13,spawn,         {.v = xvolincrcmd }   },
+	{ 0,                            0x1008ff12,spawn,         {.v = xvolmutecmd }   },
 };
 
 /* button definitions */
