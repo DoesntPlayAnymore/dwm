@@ -1,12 +1,23 @@
 /* See LICENSE file for copyright and license details. */
+#ifndef CUSTPROCC
+#define CUSTPROCC
+#include "custproc.c"
+#endif
+/*
+#ifndef DWMC
+#define DWMC
+#endif
+*/
+
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int gappx     = 13; 		/* window tile gap.*/
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=16" };
-static const char dmenufont[]       = "monospace:size=16";
+static const char *fonts[]          = { "monospace:size=13" };
+static const char dmenufont[]       = "monospace:size=13";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -20,19 +31,18 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { col_gray4, col_cyan,  col_orange  },
 };
 
-/*From tilegap.*/
-static const unsigned int gappx = 18;
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "W" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class                       instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",    		       NULL,       NULL,       0,            1,           -1 },
+	{ "Firefox", 		       NULL,       NULL,       1 << 9,       0,           -1 },
+	{ "Firefox-developer-edition", NULL,       NULL,       1 << 9,       0,           -1 },
 };
 
 /* layout(s) */
@@ -79,8 +89,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ ALTKEY,                       XK_Tab,    focusstack,     {.i = +1 } },
 	{ ALTKEY|ShiftMask,             XK_Tab,    focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_n,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_k,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_j,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
@@ -97,12 +107,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
+	/* User defined. */
  	{ MODKEY,                       XK_s,      spawn,          {.v = surfcmd     } },
 	{ 0,                            0x1008ff03,spawn,         {.v = xbldecrcmd } },
 	{ 0,                            0x1008ff02,spawn,         {.v = xblincrcmd } },
 	{ 0,                            0x1008ff11,spawn,         {.v = xvoldecrcmd }   },
 	{ 0,                            0x1008ff13,spawn,         {.v = xvolincrcmd }   },
 	{ 0,                            0x1008ff12,spawn,         {.v = xvolmutecmd }   },
+	{ 0,                            0xff61,    spawn_scrot,   {.v = "~/Pictures/scr/"} },
 
 	/* Tag keys. */
 	TAGKEYS(                        XK_1,                      0)
@@ -114,6 +127,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_w,                      9)
   	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 

@@ -20,6 +20,7 @@
  *
  * To understand everything else, start reading main().
  */
+#define DWMC
 #include <errno.h>
 #include <locale.h>
 #include <signal.h>
