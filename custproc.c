@@ -18,8 +18,8 @@ sprint_time(char *dest, const char*fmt)
 void
 spawn_scrot(const Arg *arg)
 {
-        char buf[256];
-        int x = sprint_time(buf, "%d%02d%02d_%02d:%02d:%02d");
+        char buf[128];
+        sprint_time(buf, "%d%02d%02d_%02d:%02d:%02d");
 
 	char filename[256];
 	sprintf(filename, "%s%s.png", (char *)arg->v, buf);
@@ -35,5 +35,4 @@ spawn_scrot(const Arg *arg)
                 perror(" failed");
                 exit(EXIT_SUCCESS);
         }
-	return NULL;
 }

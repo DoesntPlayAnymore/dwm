@@ -6,14 +6,14 @@ Subject: [PATCH] Fullscreen current window with [Alt]+[Shift]+[f]
 This actually fullscreens a window, instead of just hiding the statusbar
 and applying the monocle layout.
 ---
- config.def.h | 1 +
+ config.h | 1 +
  dwm.c        | 8 ++++++++
  2 files changed, 9 insertions(+)
 
-diff --git a/config.def.h b/config.def.h
+diff --git a/config.h b/config.h
 index 1c0b587..8cd3204 100644
---- a/config.def.h
-+++ b/config.def.h
+--- a/config.h
++++ b/config.h
 @@ -78,6 +78,7 @@ static Key keys[] = {
  	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
  	{ MODKEY,                       XK_space,  setlayout,      {0} },
